@@ -8,7 +8,7 @@
   <![endif]-->
 
   <link href='http://fonts.googleapis.com/css?family=PT+Sans:700' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="<%= @asset_dir %>/application.css" />
+  <link rel="stylesheet" href="http://retinajs.s3.amazonaws.com/application.css" />
 </head>
 <body>
   <header>
@@ -36,7 +36,6 @@
         high-resolution images to devices with retina displays
       </p>
       <p>
-        <a href="https://retinajs.s3.amazonaws.com/downloads/retina.zip" class="btn btn-large btn-primary"><i class="icon-download"></i>&nbsp; Download zip</a>
         <a href="#how-it-works" class="scroller btn btn-large btn-primary">How it works &nbsp;<i class="icon-chevron-down"></i></a>
       </p>
     </section>
@@ -48,7 +47,7 @@
         <h2>How it works</h2>
         <p>When your users load a page, retina.js checks each image on the page to see if there is a high-resolution version of that image on your server. If a high-resolution variant exists, the script will swap in that image in-place.</p>
 
-        <p>The script assumes you use <a href="http://developer.apple.com/library/ios/#documentation/2DDrawing/Conceptual/DrawingPrintingiOS/SupportingHiResScreensInViews/SupportingHiResScreensInViews.html#//apple_ref/doc/uid/TP40010156-CH15-SW1">Apple's prescribed high-resolution modifier (@2x)</a> to denote high-resolution image variants on your server.</p>
+        <p>The script assumes you use <a href="http://developer.apple.com/library/ios/#documentation/2DDrawing/Conceptual/DrawingPrintingiOS/SupportingHiResScreens/SupportingHiResScreens.html">Apple's prescribed high-resolution modifier (@2x)</a> to denote high-resolution image variants on your server.</p>
 
         <p>For example, if you have an image on your page that looks like this:<br />
         <code>&lt;img src=&quot;/images/my_image.png&quot; /&gt;</code>
@@ -81,28 +80,43 @@
         
         
         
-        <h3>LESS</h3>
+        <h3>LESS &amp; SASS</h3>
         
-        <p>The LESS CSS mixin is a helper for applying high-resolution background images in your stylesheet. You provide it with an image path and the dimensions of the original-resolution image. The mixin creates a media query specifically for Retina displays, changes the background image for the selector elements to use the high-resolution (@2x) variant and applies a <code>background-size</code> of the original image in order to maintain proper dimensions. To use it, <a href="#download"  class="scroller">download the mixin</a>, import or include it in your LESS stylesheet, and apply it to elements of your choice.</p>
+        <p>The LESS &amp; SASS CSS mixins are helpers for applying high-resolution background images in your stylesheet. You provide it with an image path and the dimensions of the original-resolution image. The mixin creates a media query specifically for Retina displays, changes the background image for the selector elements to use the high-resolution (@2x) variant and applies a <code>background-size</code> of the original image in order to maintain proper dimensions. To use it, <a href="#download"  class="scroller">download the mixin</a>, import or include it in your LESS or SASS stylesheet, and apply it to elements of your choice. The SASS versions require you pass the extension separately from the path.</p>
 
         <h4>Steps:</h4>
         <p>
           <strong>Syntax:</strong><br />
-          <code>.at2x(@path, [optional] @width: auto, [optional] @height: auto);</code>
+          <strong>LESS</strong><br />
+          <code>.at2x(@path, [optional] @width: auto, [optional] @height: auto);</code><br />
+          <br />
+          <strong>SASS</strong><br />
+          <code>@include at2x($path, [option] $ext: "jpg", [optional] $width: auto, [optional] $height: auto);</code>
         </p>
         
         <h4>Steps:</h4>
         
         <ol>
-          <li>Add the <code>.at2x()</code> mixin from <code>retina.less</code> to your LESS stylesheet</li>
           <li>
-            In your stylesheet, call the <code>.at2x()</code> mixin anywhere instead of using <code>background-image</code>
+            <strong>LESS</strong> - Add the <code>.at2x()</code> mixin from <code>retina.less</code> to your LESS stylesheet<br />
+            <strong>SASS</strong> - Add the <code>@mixin at2x()</code> from retina.scss or retina.sass to your SASS stylesheet (or reference it in an @import)
+          </li>
+          <li>
+            <strong>LESS</strong> - In your stylesheet, call the <code>.at2x()</code> mixin anywhere instead of using <code>background-image</code><br />
+            <strong>SASS</strong> - In your stylesheet, call <code>@include at2x()</code> anywhere instead of using <code>background-image</code>
             
             <br /><br />
             
+            <strong>LESS</strong><br />
 <code class="big">#logo {
   .at2x('/images/my_image.png', 200px, 100px);
 }</code>
+            <strong>SASS</strong><br />
+            <code class="big">#logo {
+  @include at2x('/images/my_image', "png", 200px, 100px);
+}</code>
+
+
             
             <br /><br />
             
@@ -159,8 +173,8 @@
     </footer>
 
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script src="<%= @asset_dir %>/application.js"></script>
-  <script src="<%= @asset_dir %>/retina.js"></script>  
+  <script src="http://retinajs.s3.amazonaws.com/application.js"></script>
+  <script src="http://retinajs.s3.amazonaws.com/retina.js"></script>  
 
   <script type="text/javascript">
    var _gaq = _gaq || [];
